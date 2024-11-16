@@ -1,0 +1,197 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 226 100% 97%;
+    --background-accent-1: 230 100% 95%;
+    --card-background: 0 0% 100%;
+    --text-primary: 215 25% 27%;
+    --text-secondary: 215 16% 47%;
+  }
+
+  [data-theme='dark'] {
+    --background: 222 47% 11%;
+    --background-accent-1: 225 47% 9%;
+    --card-background: 217 33% 17%;
+    --text-primary: 213 31% 91%;
+    --text-secondary: 215 20% 65%;
+  }
+
+  body {
+    @apply bg-gradient-to-br min-h-screen transition-colors duration-200;
+    @apply text-primary;
+    background-color: hsl(var(--background));
+  }
+}
+
+@layer components {
+  .btn {
+    @apply px-4 py-2 rounded-lg transition-all duration-200;
+  }
+
+  .btn-primary {
+    @apply bg-gradient-to-r from-blue-500 to-indigo-600 text-white hover:from-blue-600 hover:to-indigo-700 
+           shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0;
+  }
+
+  .glass-card {
+    @apply backdrop-blur-xl border transition-colors duration-200 shadow-lg;
+    background-color: hsl(var(--card-background) / 0.85);
+    border-color: hsl(var(--card-background) / 0.1);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+  }
+
+  .input-field {
+    @apply w-full px-4 py-2 rounded-lg transition-all duration-200;
+    border: 2px solid #e2e8f0; /* Light gray default border */
+    box-sizing: border-box;
+    color: hsl(var(--text-primary)); /* Use theme-aware text color */
+  }
+
+  .input-field::placeholder {
+    color: hsl(var(--text-secondary) / 0.6); /* Slightly transparent secondary text color */
+  }
+
+  .input-field:hover {
+    border-color: #94a3b8;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+
+  .input-field:focus {
+    @apply outline-none;
+    border-color: #6366f1;
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.1);
+  }
+
+  /* Optional: Add background color for better contrast in dark mode */
+  [data-theme='dark'] .input-field {
+    background-color: hsl(var(--card-background) / 0.8);
+    border-color: hsl(var(--text-secondary) / 0.2);
+  }
+
+  [data-theme='dark'] .input-field:hover {
+    border-color: hsl(var(--text-secondary) / 0.4);
+  }
+
+  [data-theme='dark'] .input-field:focus {
+    border-color: #6366f1;
+  }
+
+  /* Optional: Add error state */
+  .input-field.error {
+    border-color: #ef4444; /* Red border for error state */
+  }
+
+  /* Optional: Add success state */
+  .input-field.success {
+    border-color: #22c55e; /* Green border for success state */
+  }
+
+  .todo-item {
+    @apply transform transition-all duration-300 hover:scale-[1.02] hover:shadow-lg;
+  }
+
+  .text-primary {
+    color: hsl(var(--text-primary));
+  }
+
+  .text-secondary {
+    color: hsl(var(--text-secondary));
+  }
+}
+
+/* Smooth animations */
+* {
+  @apply transition-all duration-200;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-indigo-200 rounded-full hover:bg-indigo-300;
+}
+
+/* Floating animation for empty state */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.float-animation {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Gradient text */
+.gradient-text {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600;
+}
+
+/* Add these new styles for animated background */
+.animated-background {
+  @apply fixed inset-0 -z-10 transition-colors duration-500;
+  background: radial-gradient(circle at 50% 50%, 
+    hsl(var(--background-accent-1)) 0%,
+    hsl(var(--background)) 100%);
+}
+
+.animated-shapes {
+  @apply fixed inset-0 -z-10 overflow-hidden opacity-30;
+}
+
+.shape {
+  @apply absolute bg-gradient-to-br rounded-full blur-3xl opacity-70 transition-colors duration-500;
+  animation: moveShape linear infinite;
+}
+
+.shape-1 {
+  @apply from-indigo-400/30 to-purple-400/30;
+  width: 600px;
+  height: 600px;
+  top: -200px;
+  left: -100px;
+  animation-duration: 25s;
+}
+
+.shape-2 {
+  @apply from-blue-400/30 to-cyan-400/30;
+  width: 500px;
+  height: 500px;
+  top: 50%;
+  right: -100px;
+  animation-duration: 30s;
+}
+
+.shape-3 {
+  @apply from-purple-400/30 to-pink-400/30;
+  width: 400px;
+  height: 400px;
+  bottom: -100px;
+  left: 30%;
+  animation-duration: 20s;
+}
+
+@keyframes moveShape {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+  33% {
+    transform: translate(50px, 50px) rotate(120deg) scale(1.1);
+  }
+  66% {
+    transform: translate(-50px, 50px) rotate(240deg) scale(0.9);
+  }
+  100% {
+    transform: translate(0, 0) rotate(360deg) scale(1);
+  }
+}
